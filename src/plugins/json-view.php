@@ -126,10 +126,11 @@ EOD;
                 token: "'.get_token().'",
                 table: "'.$_GET['edit'].'",
                 db: "'.$_GET['db'].'",
+                server: "'.$_GET['server'].'",
                 username: "'.$_GET['username'].'"
             };
             function getAjaxURL() {
-                return location.pathname + "?username="+ data.username +"&db=" + data.db;
+                return location.pathname + "?username="+ data.username +"&db=" + data.db + (data.server ? "&server="+data.server : "") ;
             }
             function buildQuery(data) {
                 var query = "1=1";
@@ -151,6 +152,11 @@ EOD;
                 table: data.table
             }))
             var init = function(comments) {
+                var Jushlist = document.querySelectorAll(".json-view-title + pre");
+                Jushlist.forEach(function(item){
+                    item.parentElement.removeChild(item);
+                });
+                
                 JSONTextArea.Launcher.init(".json-view-title + textarea", {
                     comments: comments,
                     updateComments: function(e) {
